@@ -1,0 +1,44 @@
+SELECT
+    FL_DATE,
+    OP_UNIQUE_CARRIER,
+    OP_CARRIER_FL_NUM,
+    YEAR,
+    MONTH,
+    QUARTER,
+    DAY_OF_WEEK,
+    ORIGIN,
+    DEST,
+    CRS_DEP_TIME,
+    DEP_TIME,
+    DEP_DELAY,
+    DEP_DEL15,
+    TAXI_OUT,
+    WHEELS_OFF,
+    WHEELS_ON,
+    TAXI_IN,
+    CRS_ARR_TIME,
+    ARR_TIME,
+    ARR_DELAY,
+    ARR_DEL15,
+    CANCELLED,
+    CANCELLATION_CODE,
+    DIVERTED,
+    CRS_ELAPSED_TIME,
+    ACTUAL_ELAPSED_TIME,
+    AIR_TIME,
+    DISTANCE,
+    CARRIER_DELAY,
+    WEATHER_DELAY,
+    NAS_DELAY,
+    SECURITY_DELAY,
+    LATE_AIRCRAFT_DELAY,
+
+    COALESCE(CARRIER_DELAY, 0)
+    + COALESCE(WEATHER_DELAY, 0)
+    + COALESCE(NAS_DELAY, 0)
+    + COALESCE(SECURITY_DELAY, 0)
+    + COALESCE(LATE_AIRCRAFT_DELAY, 0)  AS total_delay_causes
+
+FROM read_parquet(
+    'C:/Users/izouk/OneDrive/Desktop/projet aeroport/airline_performance/data/parquet/*.parquet'
+)

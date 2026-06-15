@@ -1,0 +1,22 @@
+name: 'airline_dbt'
+version: '1.0.0'
+config-version: 2
+
+profile: 'airline_dbt'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+
+models:
+  airline_dbt:
+    staging:
+      +materialized: view
+    intermediate:
+      +materialized: view
+    gold:
+      +materialized: table
+
+seeds:
+  airline_dbt:
+    +schema: seeds

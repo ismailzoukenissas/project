@@ -1,0 +1,45 @@
+# Environnement virtuel
+venv/
+.venv/
+
+# Variables d'environnement
+.env
+
+# Python
+__pycache__/
+*.pyc
+
+# Jupyter
+.ipynb_checkpoints/
+
+# VS Code
+.vscode/
+
+# Windows
+Thumbs.db
+Desktop.ini
+# ignorer tout le dossier data
+data/*
+
+# mais EXCEPTÉ gold
+!data/gold/
+!data/gold/**
+
+# DATA
+data/
+*.parquet
+*.csv
+*.duckdb
+
+# GOLD outputs
+**/gold/
+
+# Tableau
+dashboard/tableau_data/
+
+# env
+venv/
+.venv/
+
+# logs
+*.log
