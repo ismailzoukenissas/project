@@ -8,8 +8,7 @@ st.set_page_config(page_title="AX3 — Fusions", page_icon="🔀", layout="wide"
 
 st.title("🔀 AX3 — Impact des Fusions et Consolidation Sectorielle")
 
-# ─── Chargement des données ───────────────────────────────────
-BASE = r"C:\Users\izouk\OneDrive\Desktop\projet aeroport\airline_performance"
+
 
 @st.cache_data
 def load_merger():
