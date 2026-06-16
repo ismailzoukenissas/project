@@ -7,11 +7,11 @@ import numpy as np
 
 st.set_page_config(
     page_title="AX4 — Questions Métier",
-    page_icon="❓",
+    page_icon="",
     layout="wide"
 )
 
-st.title("❓ AX4 — Questions Métier et Réponses")
+st.title("AX4 — Questions Métier et Réponses")
 st.markdown("Chaque question est accompagnée du graphique qui y répond directement.")
 
 # ─── Chargement des données ───────────────────────────────────
