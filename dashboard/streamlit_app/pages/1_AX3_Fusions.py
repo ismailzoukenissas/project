@@ -8,28 +8,22 @@ st.set_page_config(page_title="AX3 — Fusions", page_icon="🔀", layout="wide"
 
 st.title("🔀 AX3 — Impact des Fusions et Consolidation Sectorielle")
 
-
+# ─── Chargement des données ───────────────────────────────────
 
 @st.cache_data
 def load_merger():
     con = duckdb.connect()
-    return con.execute(f"""
-        SELECT * FROM read_parquet('{BASE}/data/gold/mart_merger_impact.parquet')
+    # Utilisation du chemin relatif (sans {BASE})
+    return con.execute("""
+        SELECT * FROM read_parquet('data/gold/mart_merger_impact.parquet')
     """).df()
 
 @st.cache_data
 def load_parquet():
     con = duckdb.connect()
-    return con.execute(f"""
-        SELECT
-            YEAR,
-            OP_UNIQUE_CARRIER,
-            COUNT(*) AS nb_vols,
-            ROUND(AVG(CASE WHEN CANCELLED=0 THEN 1-ARR_DEL15 END)*100,2) AS otp_pct
-        FROM read_parquet('{BASE}/data/parquet/*.parquet')
-        WHERE OP_UNIQUE_CARRIER IN ('UA','CO','WN','FL','AA','US')
-        GROUP BY 1,2
-        ORDER BY 1,2
+    # Lecture directe du fichier agrégé généré à l'étape 1
+    return con.execute("""
+        SELECT * FROM read_parquet('data/gold/mart_timeline.parquet')
     """).df()
 
 df_merger  = load_merger()
