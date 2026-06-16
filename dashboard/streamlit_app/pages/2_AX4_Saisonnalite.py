@@ -9,20 +9,22 @@ st.set_page_config(page_title="AX4 — Saisonnalité", page_icon="📅", layout=
 
 st.title("📅 AX4 — Saisonnalité, Cycles et Patterns Temporels")
 
-BASE = r"C:\Users\izouk\OneDrive\Desktop\projet aeroport\airline_performance"
+# ─── Chargement des données ───────────────────────────────────
 
 @st.cache_data
 def load_monthly():
     con = duckdb.connect()
-    return con.execute(f"""
-        SELECT * FROM read_parquet('{BASE}/data/gold/mart_otp_monthly.parquet')
+    # Lecture directe avec chemin relatif (plus de variable BASE)
+    return con.execute("""
+        SELECT * FROM read_parquet('data/gold/mart_otp_monthly.parquet')
     """).df()
 
 @st.cache_data
 def load_seasonality():
     con = duckdb.connect()
-    return con.execute(f"""
-        SELECT * FROM read_parquet('{BASE}/data/gold/mart_seasonality.parquet')
+    # Lecture directe avec chemin relatif (plus de variable BASE)
+    return con.execute("""
+        SELECT * FROM read_parquet('data/gold/mart_seasonality.parquet')
     """).df()
 
 df_monthly    = load_monthly()
@@ -180,8 +182,8 @@ fig4.update_layout(
     yaxis_title='% du total retard',
     height=400,
     xaxis={'categoryorder':'array',
-           'categoryarray':['Jan','Fév','Mar','Avr','Mai','Jun',
-                            'Jul','Aoû','Sep','Oct','Nov','Déc']}
+            'categoryarray':['Jan','Fév','Mar','Avr','Mai','Jun',
+                             'Jul','Aoû','Sep','Oct','Nov','Déc']}
 )
 st.plotly_chart(fig4, use_container_width=True)
 

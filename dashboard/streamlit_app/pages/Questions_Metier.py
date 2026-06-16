@@ -7,47 +7,34 @@ import numpy as np
 
 st.set_page_config(
     page_title="AX4 — Questions Métier",
-    page_icon="",
+    page_icon="❓",
     layout="wide"
 )
 
-st.title(" AX4 — Questions Métier et Réponses")
+st.title("❓ AX4 — Questions Métier et Réponses")
 st.markdown("Chaque question est accompagnée du graphique qui y répond directement.")
-
-BASE = r"C:\Users\izouk\OneDrive\Desktop\projet aeroport\airline_performance"
 
 # ─── Chargement des données ───────────────────────────────────
 @st.cache_data
 def load_monthly():
     con = duckdb.connect()
-    return con.execute(f"""
-        SELECT * FROM read_parquet('{BASE}/data/gold/mart_otp_monthly.parquet')
+    return con.execute("""
+        SELECT * FROM read_parquet('data/gold/mart_otp_monthly.parquet')
     """).df()
 
 @st.cache_data
 def load_seasonality():
     con = duckdb.connect()
-    return con.execute(f"""
-        SELECT * FROM read_parquet('{BASE}/data/gold/mart_seasonality.parquet')
+    return con.execute("""
+        SELECT * FROM read_parquet('data/gold/mart_seasonality.parquet')
     """).df()
 
 @st.cache_data
 def load_carrier_monthly():
     con = duckdb.connect()
-    return con.execute(f"""
-        SELECT
-            YEAR,
-            MONTH,
-            DAY_OF_WEEK,
-            OP_UNIQUE_CARRIER,
-            ROUND(AVG(CASE WHEN CANCELLED=0 THEN 1-ARR_DEL15 END)*100,2) AS otp_pct,
-            SUM(COALESCE(NAS_DELAY,0))         AS min_nas,
-            SUM(COALESCE(CARRIER_DELAY,0))     AS min_carrier,
-            SUM(COALESCE(WEATHER_DELAY,0))     AS min_weather,
-            COUNT(*) AS total_vols
-        FROM read_parquet('{BASE}/data/parquet/*.parquet')
-        GROUP BY 1,2,3,4
-        ORDER BY 1,2,3,4
+    # Lecture du fichier allégé généré localement
+    return con.execute("""
+        SELECT * FROM read_parquet('data/gold/mart_carrier_monthly.parquet')
     """).df()
 
 df_monthly     = load_monthly()
