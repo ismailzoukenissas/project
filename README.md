@@ -246,14 +246,8 @@ Le dashboard s'ouvre automatiquement avec 3 pages :
 
 
 
-##  Source des données
-
-**Airline Delay and Cancellation Data, 2009-2018**
-Source : Bureau of Transportation Statistics (BTS) / Department of Transportation (DOT)
-Dataset Kaggle : [kaggle.com/datasets/yuanyuwendymu/airline-delay-and-cancellation-data-2009-2018](https://www.kaggle.com/datasets/yuanyuwendymu/airline-delay-and-cancellation-data-2009-2018)
 
 
 
-## 👥 Équipe
 
-Projet réalisé dans le cadre du **Projet 3 — Data Visualisation**, responsable des axes AX3 et AX4.
+
